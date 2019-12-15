@@ -8,6 +8,8 @@ const helmet = require("helmet");
 const indexRouter = require("./src/routes/index");
 const { errResponse } = require("./src/utils/response");
 
+import { env } from "./src/utils/index.js";
+
 const app = express();
 
 app.use(helmet());
