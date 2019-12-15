@@ -1,13 +1,13 @@
 import { query } from "../utils/mysql";
 
 async function BuildingQuery() {
-    const buildingSql = `SELECT * FROM viewable.building`;
-    return await query(buildingSql);
+    const selectQuery = `SELECT * FROM viewable.building`;
+    return await query(selectQuery);
 }
 
 async function oneBuildingQuery(buildingIdx) {
-    const onebuildingSql = `SELECT * FROM viewable.building WHERE buildingIdx = ? `;
-    return await query(onebuildingSql, (buildingIdx));
+    const selectQuery = `SELECT name, address FROM viewable.building WHERE buildingIdx = ? `;
+    return await query(selectQuery, (buildingIdx));
 }
 
 

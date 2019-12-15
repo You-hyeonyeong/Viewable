@@ -20,4 +20,16 @@ describe("Viewable API Test", () => {
         .expect(200);
     });
   });
+  describe("신고", () => {
+    it("신고 테스트", async() => {
+      await req
+        .post("/building/:buildingIdx/report")
+        .send({
+          title: "genie",
+          contents: "babo",
+          img:"gini"
+        })
+        .expect(200);
+    });
+  });
 });

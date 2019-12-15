@@ -1,8 +1,8 @@
 import { query } from "../utils/mysql";
 
-async function insertBuildingReport() {
-    const insertQuery = `INSERT INTO report(title, contents, img) VALUES ( ?, ?, ?)`;
-    return await query(insertQuery);
+async function insertBuildingReport(title, contents, img) {
+    const insertQuery = `INSERT INTO viewable.report (title, contents, img) VALUES (?, ?, ?);`
+    return await query(insertQuery,[title, contents, img]);
 }
 module.exports = { 
     insertBuildingReport 

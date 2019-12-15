@@ -12,7 +12,7 @@ async function getTest(req, res, next) {
   }
 }
 
-async function oneBuilding(req, res, next) {
+async function getOneBuilding(req, res, next) {
   try {
     const oneBuilding = await buildingService.getOneBuilding(req.params.buildingIdx)
     response(res, 200, "성공", oneBuilding[0]);
@@ -22,10 +22,14 @@ async function oneBuilding(req, res, next) {
   }
 }
 
-async function buildingReport(req, res, next) {
+async function postbuildingReport(req, res, next) {
+  const title = req.body.title;
+  const contents = req.body.contents;
+  const img = req.body.img;
+
   try {
-    const oneBuilding = await buildingService.postReport(req.params.buildingIdx)
-    response(res, 200, "성공", oneBuilding[0]);
+    const postReport = await buildingService.postReport(title, contents, img)
+    response(res, 200, "성공", postReport);
   } catch (e) {
     next(e);
     return false;
@@ -34,7 +38,7 @@ async function buildingReport(req, res, next) {
 
 module.exports = { 
   getTest,
-  oneBuilding,
-  buildingReport
+  getOneBuilding,
+  postbuildingReport
 }
 
