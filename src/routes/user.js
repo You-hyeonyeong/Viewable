@@ -1,6 +1,7 @@
 import * as express from "express";
 const router = express.Router();
+import userController from "../controller/userController";
 
-router.post("/");
+router.post("/kakao", userController.kakaoLogin);
 
 module.exports = router;
