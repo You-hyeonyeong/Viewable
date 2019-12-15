@@ -1,3 +1,6 @@
+import { config } from "dotenv";
+config({ path: `${__dirname}/../.env` });
+
 const NODE_ENV = process.env.NODE_ENV;
 
 const DB_HOST = process.env.DB_HOST;
