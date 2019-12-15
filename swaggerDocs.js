@@ -1,6 +1,6 @@
-import * as swaggerUi from "swagger-ui-express";
-import * as swaggerJsdoc from "swagger-jsdoc";
-import * as express from "express";
+import swaggerUi from "swagger-ui-express";
+import swaggerJsdoc from "swagger-jsdoc";
+import express from "express";
 import { env } from "./src/utils/index.js";
 
 const router = express.Router();
