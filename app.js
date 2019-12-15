@@ -7,11 +7,12 @@ const helmet = require("helmet");
 
 const indexRouter = require("./src/routes/index");
 const { errResponse } = require("./src/utils/response");
+import swaggerDocs from "./swaggerDocs.js";
 
 import { env } from "./src/utils/index.js";
 
 const app = express();
-
+app.use(swaggerDocs);
 app.use(helmet());
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
