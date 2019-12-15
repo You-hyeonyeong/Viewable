@@ -1,4 +1,4 @@
-.env
+/src/utils/.env
 
 # Logs
 logs
