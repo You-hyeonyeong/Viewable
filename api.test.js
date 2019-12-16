@@ -21,7 +21,7 @@ describe("Viewable API Test", () => {
     });
   });
   describe("신고", () => {
-    it("신고 테스트", async() => {
+    it("신고 작성 테스트", async() => {
       await req
         .post("/building/:buildingIdx/report")
         .send({
@@ -29,6 +29,11 @@ describe("Viewable API Test", () => {
           contents: "babo",
           img:"gini"
         })
+        .expect(200);
+    });
+    it("신고 조회 테스트", async() => {
+      await req
+        .get("/report")
         .expect(200);
     });
   });
