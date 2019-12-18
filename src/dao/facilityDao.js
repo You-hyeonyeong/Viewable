@@ -1,12 +1,17 @@
 import { query } from "../utils/mysql";
 
-async function getFacility() {
-    const getFacility = `SELECT * FROM facility`;
-    return await query(getFacility);
+async function getAllFacility() {
+    const selectQuery = `SELECT facilityIdx, name, info FROM facility`;
+    return await query(selectQuery);
+}
+async function getFacilityImg(facilityIdx) {
+    const selectQuery = `SELECT imgurl FROM viewable.img WHERE facilityIdx = ?`;
+    return await query(selectQuery,[facilityIdx]);
 }
 
-
 module.exports = { 
-    getFacility 
+    getAllFacility,
+    getFacilityImg
+
 }
 

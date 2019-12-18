@@ -20,6 +20,7 @@ describe("Viewable API Test", () => {
         .expect(200);
     });
   });
+
   describe("신고", () => {
     it("신고 작성 테스트", async() => {
       await req
@@ -34,6 +35,14 @@ describe("Viewable API Test", () => {
     it("신고 조회 테스트", async() => {
       await req
         .get("/report")
+        .expect(200);
+    });
+  });
+
+  describe("시설", () => {
+    it("시설 테스트", async() => {
+      await req
+        .get("/facility/info")
         .expect(200);
     });
   });
