@@ -27,6 +27,13 @@ const options = {
       {
         name: "상점",
         description: "건물 내 상점 정보"
+      },
+      {
+        name: "편의시설",
+        description: "편의시설 i 정보"
+      },{
+        name: "신고",
+        description: "시설 신고"
       }
     ],
     securityDefinitions: {
