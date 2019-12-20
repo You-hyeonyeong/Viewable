@@ -8,6 +8,7 @@
     "test": "node ./node_modules/mocha/bin/mocha -require @babel/register --recursive './api.test.js'"
   },
   "dependencies": {
+    "aws-sdk": "^2.594.0",
     "axios": "^0.19.0",
     "cookie-parser": "^1.4.4",
     "debug": "~2.6.9",
@@ -17,6 +18,8 @@
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "promise-mysql": "^4.1.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.5"

@@ -25,7 +25,7 @@ async function getOneBuilding(req, res, next) {
 async function postbuildingReport(req, res, next) {
   const title = req.body.title;
   const contents = req.body.contents;
-  const img = req.body.img;
+  const img = req.file.location;
 
   try {
     const postReport = await buildingService.postReport(title, contents, img)
