@@ -25,11 +25,14 @@ describe("Viewable API Test", () => {
     it("신고 작성 테스트", async() => {
       await req
         .post("/building/:buildingIdx/report")
-        .send({
-          title: "genie",
-          contents: "babo",
-          img:"gini"
-        })
+        .field("title", "aaa")
+        .field("contents", "babo")
+        .attach("img", "./file.png")
+        // .send({
+        //   title: "genie",
+        //   contents: "babo",
+        //   img: "gini"
+        // })
         .expect(200);
     });
     it("신고 조회 테스트", async() => {
@@ -43,6 +46,19 @@ describe("Viewable API Test", () => {
     it("시설 테스트", async() => {
       await req
         .get("/facility/info")
+        .expect(200);
+    });
+  });
+
+  describe("관광지", () => {
+    it("전체 관광지 조회 테스트", async() => {
+      await req
+        .get("/tourSpot")
+        .expect(200);
+    });
+    it("관광지 상세 조회 테스트", async() => {
+      await req
+        .get("/tourSpot/:tourSpotIdx")
         .expect(200);
     });
   });
