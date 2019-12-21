@@ -3,10 +3,9 @@ import reportService from "../service/reportService"
 
 async function getBuildingReport(req, res, next) {
     const userIdx = 1; // 차 후 헤더에서 받아와야함
-     try {
+    try {
     const test = await reportService.getBuildingReport(userIdx)
-    console.log(test)
-    response(res, 200, "성공", test);
+    response(res, 200, "성공");
   } catch (e) {
     next(e);
     return false;

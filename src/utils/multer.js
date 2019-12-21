@@ -2,7 +2,6 @@ import multer from 'multer';
 import multerS3 from 'multer-s3';
 import aws from 'aws-sdk';
 import { env } from "./env";
-//require('dotenv').config({path: __dirname + '\\' + '.env'});
 
 aws.config.update({
     accessKeyId: env.AWS_ACCESSKEYID,

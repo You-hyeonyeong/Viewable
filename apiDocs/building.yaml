@@ -10,6 +10,28 @@
         description: Success to get building list
       500:
         description: Internal Server Error
+
+/building/{buildingIdx}:
+  get:
+    tags:
+      - 건물
+    summary: 한 건물 조회
+    produces:
+      - application/json
+    parameters:
+      - name: buildingIdx
+        in: path
+        required: true
+        description: 건물 리스트를 알고싶은 빌딩의 Idx
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+    responses:
+      200:
+        description: Success to get one building list
+      500:
+        description: Internal Server Error
 /building/{buildingId}/store:
   get:
     tags:
@@ -57,13 +79,13 @@
       - name: userIdx
         in: path
         required: true
-        description: 신고한사람의 IDX
+        description: 신고한 사람의 IDX
         schema:
           type: integer
           format: int64
           minimum: 1
     responses:
       200:
-        description: Success to get building list
+        description: Success to get report list
       500:
         description: Internal Server Error
