@@ -8,7 +8,7 @@ const router = express.Router();
 const host =
   env.NODE_ENV === "development" ?
   `localhost:${env.PORT}` :
-  `도메인이나 EC2 IP`;
+  `15.164.90.221`;
 
 const options = {
   swaggerDefinition: {
