@@ -1,8 +1,8 @@
 import { query } from "../utils/mysql";
 
-async function BuildingQuery() {
-    const selectQuery = `SELECT * FROM viewable.building`;
-    return await query(selectQuery);
+async function BuildingQuery(latitude, longitude) {
+    const selectQuery = `SELECT name, address, latitude, longitude FROM viewable.building WHERE latitude = ? AND longitude = ? `;
+    return await query(selectQuery,[latitude, longitude]);
 }
 
 async function oneBuildingQuery(buildingIdx) {
@@ -17,6 +17,8 @@ async function oneBuildingQuery(buildingIdx) {
                         GROUP BY b.name;`;
     return await query(selectQuery, (buildingIdx));
 }
+
+
 
 
 module.exports = { 

@@ -1,9 +1,11 @@
 import { response } from "../utils/response.js";
 import buildingService from "../service/buildingService"
 
-async function getTest(req, res, next) {
+async function getBuilding(req, res, next) {
+  const latitude = req.query.latitude
+  const longitude = req.query.longitude
   try {
-    const test = await buildingService.getTest()
+    const test = await buildingService.getBuilding(latitude, longitude)
     console.log(test)
     response(res, 200, "성공", test);
   } catch (e) {
@@ -37,7 +39,7 @@ async function postbuildingReport(req, res, next) {
 }
 
 module.exports = { 
-  getTest,
+  getBuilding,
   getOneBuilding,
   postbuildingReport
 }

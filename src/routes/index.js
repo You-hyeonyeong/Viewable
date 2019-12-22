@@ -6,6 +6,7 @@ router.use("/user", require("./user"));
 router.use("/data", require("./data"));
 router.use("/facility", require("./facility"));
 router.use("/report", require("./report"));
+router.use("/search", require("./search"));
 router.use("/tourSpot", require("./tourSpot"));
 
 
