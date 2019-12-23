@@ -9,8 +9,8 @@ async function getOneBuilding(buildingIdx) {
     const buildingQuery = await buildingDao.oneBuildingQuery(buildingIdx)
     return buildingQuery
 }
-async function postReport(title, contents, img) {
-    const reportQuery = await reportDao.insertBuildingReport(title, contents, img)
+async function postReport(title, contents, img, userIdx, buildingIdx) {
+    const reportQuery = await reportDao.insertBuildingReport(title, contents, img, userIdx, buildingIdx)
     return reportQuery
 }
 

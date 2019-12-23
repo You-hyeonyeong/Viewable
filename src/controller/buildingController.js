@@ -25,12 +25,14 @@ async function getOneBuilding(req, res, next) {
 }
 
 async function postbuildingReport(req, res, next) {
+  const userIdx = 1 //req.user.userIdx
+  const buildingIdx = req.params.buildingIdx;
   const title = req.body.title;
   const contents = req.body.contents;
   const img = req.file.location;
 
   try {
-    const postReport = await buildingService.postReport(title, contents, img)
+    const postReport = await buildingService.postReport(title, contents, img, userIdx, buildingIdx)
     response(res, 200, "성공", postReport);
   } catch (e) {
     next(e);
