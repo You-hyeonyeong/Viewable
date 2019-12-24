@@ -12,4 +12,20 @@ function checkAndDecodeAccessToken(auth) {
   }
 }
 
-export { checkAndDecodeAccessToken };
+function createAccessToken(userIdx) {
+  try {
+    const option = {
+      algorithm: "HS256",
+      expiresIn: "14 days",
+      issuer: "viewable"
+    };
+    const payload = { userIdx };
+    const token = jwt.sign(payload, env.SECRET_ACCESS_KEY, option);
+
+    return `Bearer ${token}`;
+  } catch (e) {
+    return null;
+  }
+}
+
+export { checkAndDecodeAccessToken, createAccessToken };
