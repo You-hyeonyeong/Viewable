@@ -32,8 +32,8 @@ const options = {
         name: "편의시설",
         description: "편의시설 i 정보"
       },{
-        name: "신고",
-        description: "시설 신고"
+        name: "마이페이지",
+        description: "프로필 정보와 신고리스트"
       }
     ],
     securityDefinitions: {

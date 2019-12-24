@@ -1,8 +1,17 @@
 import { query } from "../utils/mysql";
 
 async function BuildingQuery(latitude, longitude) {
-    const selectQuery = `SELECT name, address, latitude, longitude FROM viewable.building WHERE latitude = ? AND longitude = ? `;
-    return await query(selectQuery,[latitude, longitude]);
+    const selectQuery = `SELECT b.name, b.address, b.latitude, b.longitude, 
+                        ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) )
+                        *cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin(radians(latitude)) ) ) AS distance
+                        FROM viewable.building b 
+                        HAVING distance < 0.2
+                        ORDER BY distance ;`
+    
+    const aa = await query(selectQuery,[latitude, longitude, latitude]);
+    console.log("aa" + aa)
+    console.log("selectQuery" + selectQuery)
+    return aa
 }
 
 async function oneBuildingQuery(buildingIdx) {
@@ -17,9 +26,6 @@ async function oneBuildingQuery(buildingIdx) {
                         GROUP BY b.name;`;
     return await query(selectQuery, (buildingIdx));
 }
-
-
-
 
 module.exports = { 
     BuildingQuery,

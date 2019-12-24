@@ -3,6 +3,7 @@ import reportDao from "../dao/reportDao"
 
 async function getBuilding(latitude, longitude) {
     const getBuilding = await buildingDao.BuildingQuery(latitude, longitude)
+    console.log(getBuilding)
     return getBuilding
 }
 async function getOneBuilding(buildingIdx) {

@@ -6,7 +6,7 @@ async function getBuilding(req, res, next) {
   const longitude = req.query.longitude
   try {
     const test = await buildingService.getBuilding(latitude, longitude)
-    console.log(test)
+    console.log(latitude,longitude)
     response(res, 200, "성공", test);
   } catch (e) {
     next(e);
@@ -25,7 +25,9 @@ async function getOneBuilding(req, res, next) {
 }
 
 async function postbuildingReport(req, res, next) {
-  const userIdx = 1 //req.user.userIdx
+  const userIdx = 1;
+  //req.user.userIdx
+//console.log(userIdx); 
   const buildingIdx = req.params.buildingIdx;
   const title = req.body.title;
   const contents = req.body.contents;
