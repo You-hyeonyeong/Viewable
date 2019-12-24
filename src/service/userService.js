@@ -1,20 +1,42 @@
-import * as request from "request";
-import userDao from "../dao/userDao"
+import request from "request-promise";
+import * as utils from "../utils/index.js";
+import * as userDao from "../dao/userDao.js";
 
-export const kakaoLogin = async kakaoAccessToken => {
+export const kakaoLogin = async(name, kakaoAccessToken) => {
   const options = {
-    method: "POST",
-    uri: "http://kapi.kakao.com/v2/user/me",
+    method: "GET",
+    uri: "https://kapi.kakao.com/v2/user/me",
     json: true,
     headers: {
-      Authorization: "Bearer " + kakaoAccessToken
+      Authorization: `Bearer ${kakaoAccessToken}`
     }
   };
   try {
     const userInfo = await request(options);
-  } catch (e) {}
-};
+    const check = await userDao.selectUserById(userInfo.id);
+    let userIdx = 0;
 
+    if (check.length !== 1) {
+      // 새로운 유저 회원 가입
+      const newUser = await userDao.insertUser(
+        userInfo.id,
+        userInfo.kakao_account.email,
+        userInfo.properties.nickname,
+        userInfo.properties.profile_image
+      );
+      userIdx = newUser.insertId;
+    } else {
+      // 기존 회원 로그인
+      userIdx = check[0].userIdx;
+    }
+    const accessToken = utils.createAccessToken(userIdx);
+    console.log(accessToken);
+
+    return { accessToken };
+  } catch (e) {
+    throw e;
+  }
+};
 async function getUserProfile(userIdx) {
   const userProfileQuery = await userDao.selectUserProfile(userIdx)
   return userProfileQuery
@@ -28,4 +50,3 @@ module.exports = {
   getUserProfile,
   getUserReport
 }
-

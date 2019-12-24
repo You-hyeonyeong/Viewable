@@ -1,4 +1,5 @@
 import { query } from "../utils/mysql";
+import { query } from "../utils/index.js";
 
 async function selectUserProfile(userIdx) {
     const selectQuery = `SELECT username, userImg FROM viewable.user WHERE userIdx = ?;`
@@ -13,7 +14,24 @@ async function selectUserReport(userIdx) {
     return await query(selectQuery,[userIdx]);
 }
 
+export const selectUserById = async id => {
+  const selectSql = `
+        SELECT *
+        FROM user
+        WHERE id = ${id}`;
+
+  return await query(selectSql);
+};
+
+export const insertUser = async(id, useremail, username, userImg) => {
+  const insertSql = `
+        INSERT INTO user (id, useremail, username, userImg, createdAt)
+        VALUES (?, ?, ?, ?, NOW())`;
+
+  return await query(insertSql, [id, useremail, username, userImg]);
+};
+
 module.exports = { 
-    selectUserProfile,
-    selectUserReport
+  selectUserProfile,
+  selectUserReport
 }

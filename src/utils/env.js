@@ -23,6 +23,10 @@ const AWS_SECRETACCESSKEY = process.env.AWS_SECRETACCESSKEY;
 
 const AWS_REGION = process.env.AWS_REGION;
 
+const KAKAO_APP_KEY = process.env.KAKAO_APP_KEY;
+
+const KAKAO_REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;
+
 const env = {
   NODE_ENV,
   DB_HOST,
@@ -34,7 +38,9 @@ const env = {
   PORT,
   AWS_ACCESSKEYID,
   AWS_SECRETACCESSKEY,
-  AWS_REGION
+  AWS_REGION,
+  KAKAO_APP_KEY,
+  KAKAO_REDIRECT_URI
 };
 
 export { env };
