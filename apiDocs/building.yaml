@@ -68,27 +68,6 @@
         description: Success to get facility list
       500:
         description: Internal Server Error
-/report:
-  get:
-    tags:
-      - 신고
-    summary: 신고 리스트 조회
-    produces:
-      - application/json
-    parameters:
-      - name: userIdx
-        in: path
-        required: true
-        description: 신고한 사람의 IDX
-        schema:
-          type: integer
-          format: int64
-          minimum: 1
-    responses:
-      200:
-        description: Success to get report list
-      500:
-        description: Internal Server Error
 /tourSpot:
   get:
     tags:
@@ -122,5 +101,25 @@
         description: Success to get OnetourSpot list
       500:
         description: Internal Server Error
-
+/user/mypage:
+  get:
+    tags:
+      - 마이페이지
+    summary: 내 프로필과 신고 리스트 조회
+    produces:
+      - application/json
+    parameters:
+      - name: userIdx
+        in: path
+        required: true
+        description: 유저 IDX
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+    responses:
+      200:
+        description: Success to get mypage
+      500:
+        description: Internal Server Error
 

@@ -3,6 +3,7 @@ const router = express.Router();
 import userController from "../controller/userController";
 
 router.post("/kakao", userController.kakaoLogin);
+router.get("/mypage", userController.getUserProfile);
 router.get("/kakao/callback", (req, res) => {
   try {} catch (e) {
     console.log(e.message);
@@ -10,4 +11,5 @@ router.get("/kakao/callback", (req, res) => {
   }
 });
 
-module.exports = router;
+
+module.exports = router;  

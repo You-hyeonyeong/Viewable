@@ -1,10 +1,12 @@
 import { response } from "../utils/response.js";
 import buildingService from "../service/buildingService"
 
-async function getTest(req, res, next) {
+async function getBuilding(req, res, next) {
+  const latitude = req.query.latitude
+  const longitude = req.query.longitude
   try {
-    const test = await buildingService.getTest()
-    console.log(test)
+    const test = await buildingService.getBuilding(latitude, longitude)
+    console.log(latitude,longitude)
     response(res, 200, "성공", test);
   } catch (e) {
     next(e);
@@ -23,12 +25,16 @@ async function getOneBuilding(req, res, next) {
 }
 
 async function postbuildingReport(req, res, next) {
+  const userIdx = 1;
+  //req.user.userIdx
+//console.log(userIdx); 
+  const buildingIdx = req.params.buildingIdx;
   const title = req.body.title;
   const contents = req.body.contents;
   const img = req.file.location;
 
   try {
-    const postReport = await buildingService.postReport(title, contents, img)
+    const postReport = await buildingService.postReport(title, contents, img, userIdx, buildingIdx)
     response(res, 200, "성공", postReport);
   } catch (e) {
     next(e);
@@ -37,7 +43,7 @@ async function postbuildingReport(req, res, next) {
 }
 
 module.exports = { 
-  getTest,
+  getBuilding,
   getOneBuilding,
   postbuildingReport
 }

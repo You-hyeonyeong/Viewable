@@ -11,7 +11,6 @@ export const kakaoLogin = async(name, kakaoAccessToken) => {
       Authorization: `Bearer ${kakaoAccessToken}`
     }
   };
-
   try {
     const userInfo = await request(options);
     const check = await userDao.selectUserById(userInfo.id);
@@ -38,3 +37,16 @@ export const kakaoLogin = async(name, kakaoAccessToken) => {
     throw e;
   }
 };
+async function getUserProfile(userIdx) {
+  const userProfileQuery = await userDao.selectUserProfile(userIdx)
+  return userProfileQuery
+}
+async function getUserReport(userIdx) {
+  const userReportQuery = await userDao.selectUserReport(userIdx)
+  return userReportQuery
+}
+
+module.exports = {
+  getUserProfile,
+  getUserReport
+}

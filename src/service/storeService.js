@@ -2,8 +2,6 @@ import * as storeDao from "../dao/storeDao.js";
 
 export const getBuildingStoreList = async buildingIdx => {
   try {
-    console.log("none");
-
     const store = await storeDao.selectStoresBuBuildingIdx(buildingIdx);
     const storeList = makeUpStoreList(store);
 
@@ -15,7 +13,6 @@ export const getBuildingStoreList = async buildingIdx => {
 
 export const getFilteredStore = async(buildingIdx, category, facility) => {
   try {
-    console.log("filtered");
     const categoryList = category.split(",");
     const facilityList = facility.split(",");
 
@@ -93,3 +90,23 @@ const makeUpStoreList = store => {
   storeList.splice(0, 1);
   return storeList;
 };
+
+// 혀녕이 수정 
+async function getStore(buildingIdx) {
+    const storeQuery = await storeDao.selectStoreByBuildingIdx(buildingIdx)
+    return storeQuery
+}
+async function getOneStore(storeIdx) {
+    const storeQuery = await storeDao.selectStoreByStoreIdx(storeIdx)
+    return storeQuery
+}
+async function getStoreByCategoryIdx(categoryIdx) {
+    const storeQuery = await storeDao.selectStoreByCategoryIdx(categoryIdx)
+    return storeQuery
+}
+
+module.exports = {
+    getStore,
+    getOneStore,
+    getStoreByCategoryIdx
+}

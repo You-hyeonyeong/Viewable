@@ -8,8 +8,12 @@ async function getAllFacility() {
     }
     return facilityItem
 }
+async function getFacilityByStore(storeIdx){
+    const facilityListByStore =  await facilityDao.getFacilityByStore(storeIdx)
+    return facilityListByStore
+}
 
 module.exports = {
-    getAllFacility
-    
+    getAllFacility,
+    getFacilityByStore
 }
