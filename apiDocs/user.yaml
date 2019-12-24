@@ -1,0 +1,25 @@
+/user:
+  post:
+    tags:
+      - 사용자
+    summary: KAKAO 소셜 로그인
+    consumes:
+      - application/json
+    parameters:
+      - name: "kakaoAccessToken"
+        in: "body"
+        description: "사용자 카카오 엑세스 토큰"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "body"
+        description: "사용자 이름"
+        required: true
+        type: "string"
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success to get building list
+      500:
+        description: Internal Server Error

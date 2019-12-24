@@ -21,6 +21,10 @@ const options = {
     host: `${host}`,
     basePath: "/",
     tags: [{
+        name: "사용자",
+        description: "유저 정보"
+      },
+      {
         name: "건물",
         description: "건물 정보"
       },
@@ -31,7 +35,8 @@ const options = {
       {
         name: "편의시설",
         description: "편의시설 i 정보"
-      },{
+      },
+      {
         name: "신고",
         description: "시설 신고"
       }
