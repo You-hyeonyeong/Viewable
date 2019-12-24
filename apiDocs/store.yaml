@@ -1,0 +1,50 @@
+/building/{buildingIdx}/store:
+  get:
+    tags:
+      - 상점
+    summary: 특정 빌딩의 상점 리스트 보기 + 필터링
+    consumes:
+      - application/json
+    parameters:
+      - name: "buildingIdx"
+        in: "path"
+        required: true
+        description: "건물 리스트를 알고싶은 빌딩의 Idx"
+        type: "string"
+      - name: "category"
+        in: "query"
+        required: false
+        description: "필터링하고싶은 카테고리들(다수의 값들은 , 로 묶어서 주세요 / ex. 1,2,3 )"
+        type: "string"
+      - name: "facility"
+        in: "query"
+        required: false
+        description: "필터링하고싶은 편의시설들들(다수의 값들은 , 로 묶어서 주세요 / ex. 1,2,3 )"
+        type: "string"
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success to get store list
+      500:
+        description: Internal Server Error
+/store/{storeIdx}:
+  get:
+    tags:
+      - 상점
+    summary: 상점 정보 보기
+    consumes:
+      - application/json
+    parameters:
+      - name: "storeIdx"
+        in: "path"
+        required: true
+        description: "상점의 Idx"
+        type: "string"
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success to get store list
+      500:
+        description: Internal Server Error
