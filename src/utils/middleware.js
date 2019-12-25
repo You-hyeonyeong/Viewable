@@ -1,7 +1,7 @@
-import * as util from "./index.js";
+const auth = require("./auth");
 
 function checkAccessToken(req, res, next) {
-  const token = util.checkAndDecodeAccessToken(req.headers.authorization);
+  const token = auth.checkAndDecodeAccessToken(req.headers.authorization);
 
   if (token) {
     req.user = token;
@@ -12,4 +12,4 @@ function checkAccessToken(req, res, next) {
   }
 }
 
-export { checkAccessToken };
+module.exports = checkAccessToken;

@@ -1,9 +1,9 @@
-import * as express from "express";
+const express = require("express");
 const router = express.Router();
-import upload from "../utils/multer";
+const upload = require("../utils/multer");
 
-import * as buildingController from "../controller/buildingController.js";
-import * as storeController from "../controller/storeController.js";
+const buildingController = require("../controller/buildingController");
+const storeController = require("../controller/storeController");
 
 router.get("/:buildingIdx/store", storeController.getBuildingStoreList);
 
@@ -13,6 +13,6 @@ router.post(
   buildingController.postbuildingReport
 ); // 특정빌딩 신고하기
 router.get("/:buildingIdx", buildingController.getOneBuilding); // 특정빌딩 정보보기
-router.get("/", buildingController.getTest); //test getbuilding
+// router.get("/", buildingController.getTest); //test getbuilding
 
 module.exports = router;

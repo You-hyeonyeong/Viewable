@@ -1,6 +1,6 @@
-import * as express from "express";
+const express = require("express");
 const router = express.Router();
-import * as facilityController from "../controller/facilityController.js";
+const facilityController = require("../controller/facilityController");
 
 router.get("/info", facilityController.getAllFacility);
 //router.get("/info/:facilityIdx", facilityController.getOneFacility);

@@ -1,22 +1,28 @@
-import buildingDao from "../dao/buildingDao"
-import reportDao from "../dao/reportDao"
+const buildingDao = require("../dao/buildingDao");
+const reportDao = require("../dao/reportDao");
 
 async function getBuilding(latitude, longitude) {
-    const getBuilding = await buildingDao.BuildingQuery(latitude, longitude)
-    console.log(getBuilding)
-    return getBuilding
+  const getBuilding = await buildingDao.BuildingQuery(latitude, longitude);
+  console.log(getBuilding);
+  return getBuilding;
 }
 async function getOneBuilding(buildingIdx) {
-    const buildingQuery = await buildingDao.oneBuildingQuery(buildingIdx)
-    return buildingQuery
+  const buildingQuery = await buildingDao.oneBuildingQuery(buildingIdx);
+  return buildingQuery;
 }
 async function postReport(title, contents, img, userIdx, buildingIdx) {
-    const reportQuery = await reportDao.insertBuildingReport(title, contents, img, userIdx, buildingIdx)
-    return reportQuery
+  const reportQuery = await reportDao.insertBuildingReport(
+    title,
+    contents,
+    img,
+    userIdx,
+    buildingIdx
+  );
+  return reportQuery;
 }
 
 module.exports = {
-    getBuilding,
-    getOneBuilding,
-    postReport
-}
+  getBuilding,
+  getOneBuilding,
+  postReport
+};

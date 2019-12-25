@@ -1,8 +1,8 @@
-import request from "request-promise";
-import * as utils from "../utils/index.js";
-import * as userDao from "../dao/userDao.js";
+const request = require("request-promise");
+const auth = require("../utils/auth");
+const userDao = require("../dao/userDao");
 
-export const kakaoLogin = async(name, kakaoAccessToken) => {
+const kakaoLogin = async(name, kakaoAccessToken) => {
   const options = {
     method: "GET",
     uri: "https://kapi.kakao.com/v2/user/me",
@@ -29,8 +29,7 @@ export const kakaoLogin = async(name, kakaoAccessToken) => {
       // 기존 회원 로그인
       userIdx = check[0].userIdx;
     }
-    const accessToken = utils.createAccessToken(userIdx);
-    console.log(accessToken);
+    const accessToken = auth.createAccessToken(userIdx);
 
     return { accessToken };
   } catch (e) {
@@ -38,15 +37,16 @@ export const kakaoLogin = async(name, kakaoAccessToken) => {
   }
 };
 async function getUserProfile(userIdx) {
-  const userProfileQuery = await userDao.selectUserProfile(userIdx)
-  return userProfileQuery
+  const userProfileQuery = await userDao.selectUserProfile(userIdx);
+  return userProfileQuery;
 }
 async function getUserReport(userIdx) {
-  const userReportQuery = await userDao.selectUserReport(userIdx)
-  return userReportQuery
+  const userReportQuery = await userDao.selectUserReport(userIdx);
+  return userReportQuery;
 }
 
 module.exports = {
+  kakaoLogin,
   getUserProfile,
   getUserReport
-}
+};
