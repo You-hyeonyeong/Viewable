@@ -21,4 +21,4 @@ const errResponse = (res, status, message) => {
     .end();
 };
 
-export { response, errResponse };
+module.exports = { response, errResponse };

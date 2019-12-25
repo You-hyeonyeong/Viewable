@@ -1,6 +1,6 @@
-import * as express from "express";
+const express = require("express");
 const router = express.Router();
-import * as storeController from "../controller/storeController.js";
+const storeController = require("../controller/storeController");
 
 router.get("/:storeIdx", storeController.getStoreByStoreIdx);
 

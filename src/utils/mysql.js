@@ -1,5 +1,5 @@
-import * as mysql from "promise-mysql";
-import { env } from "./env";
+const mysql = require("promise-mysql");
+const env = require("./env");
 
 let mysqlPool;
 const mysqlConfig = {
@@ -51,4 +51,4 @@ async function transaction(...args) {
   }
 }
 
-export { query, transaction };
+module.exports = { query, transaction };

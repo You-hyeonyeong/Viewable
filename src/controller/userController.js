@@ -1,5 +1,5 @@
-import { response } from "../utils/index.js";
-import * as userService from "../service/userService.js";
+const { response } = require("../utils/response");
+const userService = require("../service/userService");
 
 const kakaoLogin = async(req, res, next) => {
   try {
@@ -15,15 +15,15 @@ const kakaoLogin = async(req, res, next) => {
 };
 
 async function getUserProfile(req, res, next) {
-  const userIdx = 1 //req.user.userIdx
+  const userIdx = 1; //req.user.userIdx
   try {
-    const userInfo1 = await userService.getUserProfile(userIdx)
-    const userInfo2 = await userService.getUserReport(userIdx)
+    const userInfo1 = await userService.getUserProfile(userIdx);
+    const userInfo2 = await userService.getUserReport(userIdx);
     const userInfo = {
-      userProfile : userInfo1,
-      userReport : userInfo2
-    }
-    console.log(userInfo1, userInfo2)
+      userProfile: userInfo1,
+      userReport: userInfo2
+    };
+    console.log(userInfo1, userInfo2);
     response(res, 200, "성공", userInfo);
   } catch (e) {
     next(e);

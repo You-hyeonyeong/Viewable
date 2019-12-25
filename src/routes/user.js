@@ -1,6 +1,6 @@
-import * as express from "express";
+const express = require("express");
 const router = express.Router();
-import userController from "../controller/userController";
+const userController = require("../controller/userController");
 
 router.post("/kakao", userController.kakaoLogin);
 router.get("/mypage", userController.getUserProfile);
@@ -11,5 +11,4 @@ router.get("/kakao/callback", (req, res) => {
   }
 });
 
-
-module.exports = router;  
+module.exports = router;

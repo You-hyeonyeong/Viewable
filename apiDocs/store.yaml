@@ -10,17 +10,22 @@
         in: "path"
         required: true
         description: "건물 리스트를 알고싶은 빌딩의 Idx"
-        type: "string"
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
       - name: "category"
         in: "query"
         required: false
         description: "필터링하고싶은 카테고리들(다수의 값들은 , 로 묶어서 주세요 / ex. 1,2,3 )"
-        type: "string"
+        schema:
+          type: string
       - name: "facility"
         in: "query"
         required: false
         description: "필터링하고싶은 편의시설들들(다수의 값들은 , 로 묶어서 주세요 / ex. 1,2,3 )"
-        type: "string"
+        schema:
+          type: string
     produces:
       - application/json
     responses:

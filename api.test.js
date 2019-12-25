@@ -1,6 +1,5 @@
-import { expect } from "chai";
-import request from "supertest";
-import app from "./app.js";
+const request = require("supertest");
+const app = require("./app.js");
 
 describe("Viewable API Test", () => {
   const req = request(app);

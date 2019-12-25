@@ -1,8 +1,8 @@
-import * as storeDao from "../dao/storeDao.js";
+const storeDao = require("../dao/storeDao");
 
-export const getBuildingStoreList = async buildingIdx => {
+const getBuildingStoreList = async buildingIdx => {
   try {
-    const store = await storeDao.selectStoresBuBuildingIdx(buildingIdx);
+    const store = await storeDao.selectStoresByBuildingIdx(buildingIdx);
     const storeList = makeUpStoreList(store);
 
     return storeList;
@@ -11,7 +11,7 @@ export const getBuildingStoreList = async buildingIdx => {
   }
 };
 
-export const getFilteredStore = async(buildingIdx, category, facility) => {
+const getFilteredStore = async(buildingIdx, category, facility) => {
   try {
     const categoryList = category.split(",");
     const facilityList = facility.split(",");
@@ -52,7 +52,7 @@ export const getFilteredStore = async(buildingIdx, category, facility) => {
   }
 };
 
-export const getStoreByStoreIdx = async storeIdx => {
+const getStoreByStoreIdx = async storeIdx => {
   try {
     const store = await storeDao.selectStoreInfo(storeIdx);
 
@@ -91,22 +91,22 @@ const makeUpStoreList = store => {
   return storeList;
 };
 
-// 혀녕이 수정 
-async function getStore(buildingIdx) {
-    const storeQuery = await storeDao.selectStoreByBuildingIdx(buildingIdx)
-    return storeQuery
-}
-async function getOneStore(storeIdx) {
-    const storeQuery = await storeDao.selectStoreByStoreIdx(storeIdx)
-    return storeQuery
-}
-async function getStoreByCategoryIdx(categoryIdx) {
-    const storeQuery = await storeDao.selectStoreByCategoryIdx(categoryIdx)
-    return storeQuery
-}
+// 혀녕이 수정
+// async function getStore(buildingIdx) {
+//   const storeQuery = await storeDao.selectStoreByBuildingIdx(buildingIdx);
+//   return storeQuery;
+// }
+// async function getOneStore(storeIdx) {
+//   const storeQuery = await storeDao.selectStoreByStoreIdx(storeIdx);
+//   return storeQuery;
+// }
+// async function getStoreByCategoryIdx(categoryIdx) {
+//   const storeQuery = await storeDao.selectStoreByCategoryIdx(categoryIdx);
+//   return storeQuery;
+// }
 
 module.exports = {
-    getStore,
-    getOneStore,
-    getStoreByCategoryIdx
-}
+  getBuildingStoreList,
+  getFilteredStore,
+  getStoreByStoreIdx
+};

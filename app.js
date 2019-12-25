@@ -4,14 +4,15 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const helmet = require("helmet");
+const cors = require("cors");
 
 const indexRouter = require("./src/routes/index");
 const { errResponse } = require("./src/utils/response");
-import swaggerDocs from "./swaggerDocs.js";
-
-import { env } from "./src/utils/index.js";
+const swaggerDocs = require("./swaggerDocs.js");
 
 const app = express();
+
+app.use(cors());
 app.use(swaggerDocs);
 app.use(helmet());
 // view engine setup
