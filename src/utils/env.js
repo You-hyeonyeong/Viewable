@@ -1,5 +1,5 @@
-import { config } from "dotenv";
-config({ path: `${__dirname}/.env` });
+const dotenv = require("dotenv");
+dotenv.config({ path: `${__dirname}/.env` });
 
 const NODE_ENV = process.env.NODE_ENV;
 
@@ -43,4 +43,4 @@ const env = {
   KAKAO_REDIRECT_URI
 };
 
-export { env };
+module.exports = env;

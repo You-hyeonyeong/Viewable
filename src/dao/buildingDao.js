@@ -1,4 +1,4 @@
-import { query } from "../utils/mysql";
+const { query } = require("../utils/mysql");
 
 async function BuildingQuery(latitude, longitude) {
     const selectQuery = `SELECT b.buildingIdx, b.name, b.address, b.latitude, b.longitude, 

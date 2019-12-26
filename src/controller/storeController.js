@@ -1,6 +1,6 @@
-import { response } from "../utils/index.js";
-import * as storeService from "../service/storeService.js";
-import facilityService from "../service/facilityService"
+const { response } = require("../utils/response");
+const storeService = require("../service/storeService");
+const facilityService = require("../service/facilityService");
 
 const getBuildingStoreList = async(req, res, next) => {
   try {
@@ -24,7 +24,7 @@ const getBuildingStoreList = async(req, res, next) => {
   }
 };
 
-export const getStoreByStoreIdx = async(req, res, next) => {
+const getStoreByStoreIdx = async(req, res, next) => {
   try {
     const store = await storeService.getStoreByStoreIdx(req.params.storeIdx);
     response(res, 200, store);
@@ -36,9 +36,9 @@ export const getStoreByStoreIdx = async(req, res, next) => {
 
 // 혀녕이 수정 부분
 async function getStore(req, res, next) {
-  const buildingIdx = req.params.buildingIdx
+  const buildingIdx = req.params.buildingIdx;
   try {
-    const test = await storeService.getStore(buildingIdx)
+    const test = await storeService.getStore(buildingIdx);
     response(res, 200, "성공");
   } catch (e) {
     next(e);
@@ -47,9 +47,9 @@ async function getStore(req, res, next) {
 }
 
 async function getOneStore(req, res, next) {
-  const storeIdx = req.params.storeIdx
+  const storeIdx = req.params.storeIdx;
   try {
-    const test = await storeService.getStore(storeIdx)
+    const test = await storeService.getStore(storeIdx);
     response(res, 200, "성공");
   } catch (e) {
     next(e);
@@ -58,10 +58,10 @@ async function getOneStore(req, res, next) {
 }
 
 async function getStoreByCategoryIdx(req, res, next) {
-  const categoryIdx = req.params.categoryIdx
+  const categoryIdx = req.params.categoryIdx;
   try {
     if (categoryIdx > 7) response(res, 200, "범위다름");
-    const test = await storeService.getStoreByCategoryIdx(categoryIdx)
+    const test = await storeService.getStoreByCategoryIdx(categoryIdx);
     response(res, 200, "성공", test);
   } catch (e) {
     next(e);
@@ -74,7 +74,7 @@ async function getStoreByFilter(req, res, next) {
   const keyword = req.query.keyword;
 
   try {
-    const test = await facilityService.getFacilityByStore(storeIdx)
+    const test = await facilityService.getFacilityByStore(storeIdx);
     response(res, 200, "성공", test);
   } catch (e) {
     next(e);
@@ -83,12 +83,10 @@ async function getStoreByFilter(req, res, next) {
 }
 
 module.exports = {
+  getBuildingStoreList,
+  getStoreByStoreIdx,
   getStore,
   getOneStore,
   getStoreByCategoryIdx,
-  getStoreByFilter,
-  getBuildingStoreList,
-  getStoreByStoreIdx
-
-
-}
+  getStoreByFilter
+};

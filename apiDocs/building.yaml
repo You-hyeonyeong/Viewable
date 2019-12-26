@@ -112,4 +112,3 @@
         description: Success to get mypage
       500:
         description: Internal Server Error
-

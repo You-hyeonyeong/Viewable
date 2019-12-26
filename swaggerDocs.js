@@ -1,14 +1,12 @@
-import swaggerUi from "swagger-ui-express";
-import swaggerJsdoc from "swagger-jsdoc";
-import express from "express";
-import { env } from "./src/utils/index.js";
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
+const express = require("express");
+const env = require("./src/utils/env");
 
 const router = express.Router();
 
 const host =
-  env.NODE_ENV === "development" ?
-  `localhost:${env.PORT}` :
-  `15.164.90.221`;
+  env.NODE_ENV === "development" ? `localhost:${env.PORT}` : `15.164.90.221`;
 
 const options = {
   swaggerDefinition: {
@@ -35,10 +33,10 @@ const options = {
       {
         name: "편의시설",
         description: "편의시설 i 정보"
-      },{
+      },
+      {
         name: "마이페이지",
         description: "프로필 정보와 신고리스트"
-
       }
     ],
     securityDefinitions: {

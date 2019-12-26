@@ -1,9 +1,9 @@
-import * as express from "express";
+const express = require("express");
 const router = express.Router();
-import upload from "../utils/multer";
+const upload = require("../utils/multer");
 
-import * as buildingController from "../controller/buildingController.js";
-import * as storeController from "../controller/storeController.js";
+const buildingController = require("../controller/buildingController");
+const storeController = require("../controller/storeController");
 
 router.get("/:buildingIdx/store", storeController.getBuildingStoreList);
 router.post(

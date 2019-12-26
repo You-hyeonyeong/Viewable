@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { env } = require("./index");
+const { env } = require("./env");
 
 function checkAndDecodeAccessToken(auth) {
   try {
@@ -28,4 +28,4 @@ function createAccessToken(userIdx) {
   }
 }
 
-export { checkAndDecodeAccessToken, createAccessToken };
+module.exports = { checkAndDecodeAccessToken, createAccessToken };

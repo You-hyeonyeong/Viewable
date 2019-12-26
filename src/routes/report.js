@@ -1,8 +1,8 @@
-import * as express from "express";
+const express = require("express");
 const router = express.Router();
-import { checkAccessToken } from "../utils/index.js";
+const checkAccessToken = require("../utils/middleware");
 
-import * as reportController from "../controller/reportController";
+const reportController = require("../controller/reportController");
 
 router.get("/", checkAccessToken, reportController.getBuildingReport); // 신고내역보기
 
