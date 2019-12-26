@@ -1,7 +1,8 @@
 import { response } from "../utils/index.js";
 import * as storeService from "../service/storeService.js";
+import facilityService from "../service/facilityService"
 
-export const getBuildingStoreList = async(req, res, next) => {
+const getBuildingStoreList = async(req, res, next) => {
   try {
     let { category, facility } = req.query;
     let store;
@@ -34,10 +35,6 @@ export const getStoreByStoreIdx = async(req, res, next) => {
 };
 
 // 혀녕이 수정 부분
-import { response } from "../utils/response.js";
-import storeService from "../service/storeService"
-import facilityService from "../service/facilityService"
-
 async function getStore(req, res, next) {
   const buildingIdx = req.params.buildingIdx
   try {
@@ -89,6 +86,9 @@ module.exports = {
   getStore,
   getOneStore,
   getStoreByCategoryIdx,
-  getStoreByFilter
+  getStoreByFilter,
+  getBuildingStoreList,
+  getStoreByStoreIdx
+
 
 }

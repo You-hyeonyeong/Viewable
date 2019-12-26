@@ -2,9 +2,22 @@
   get:
     tags:
       - 건물
-    summary: 전체 건물 조회
+    summary: 메인 AR 건물 조회
     produces:
       - application/json
+    parameters:
+      - name: "latitude"
+        in: "query"
+        required: true
+        description: "현위치 위도값"
+        schema:
+          type: "double"
+      - name: "longitude"
+        in: "query"
+        required: true
+        description: "현위치 경도값"
+        schema:
+          type: "double"
     responses:
       200:
         description: Success to get building list
@@ -15,44 +28,21 @@
   get:
     tags:
       - 건물
-    summary: 한 건물 조회
+    summary: 한 건물의 편의시설 조회
     produces:
       - application/json
     parameters:
       - name: buildingIdx
         in: path
         required: true
-        description: 건물 리스트를 알고싶은 빌딩의 Idx
+        description: 편의시설 정보를 알고싶은 빌딩의 Idx
         schema:
           type: integer
           format: int64
           minimum: 1
     responses:
       200:
-        description: Success to get one building list
-      500:
-        description: Internal Server Error
-/building/{buildingId}/store:
-  get:
-    tags:
-      - 상점
-    summary: 한 건물의 전체 상점 조회
-    produces:
-      - application/json
-    parameters:
-      - name: buildingId
-        in: path
-        required: true
-        description: 건물 리스트를 알고싶은 빌딩의 ID
-        schema:
-          type: integer
-          format: int64
-          minimum: 1
-    responses:
-      200:
-        description: Success to get building store list
-      404:
-        description: Bad Request
+        description: Success to get one buildingFacility list
       500:
         description: Internal Server Error
 /facility/info:

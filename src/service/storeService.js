@@ -55,7 +55,7 @@ export const getFilteredStore = async(buildingIdx, category, facility) => {
 export const getStoreByStoreIdx = async storeIdx => {
   try {
     const store = await storeDao.selectStoreInfo(storeIdx);
-
+    console.log(store)
     const info = store[0];
     info["facilities"] = [];
 
@@ -108,5 +108,6 @@ async function getStoreByCategoryIdx(categoryIdx) {
 module.exports = {
     getStore,
     getOneStore,
-    getStoreByCategoryIdx
+    getStoreByCategoryIdx,
+    getStoreByStoreIdx
 }

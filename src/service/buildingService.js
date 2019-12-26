@@ -6,8 +6,14 @@ async function getBuilding(latitude, longitude) {
     console.log(getBuilding)
     return getBuilding
 }
-async function getOneBuilding(buildingIdx) {
-    const buildingQuery = await buildingDao.oneBuildingQuery(buildingIdx)
+//BuildingFacilities
+async function getBuildingFacility(buildingIdx) {
+    const BuildingFacilities = await buildingDao.BuildingFacilities(buildingIdx)
+    console.log(BuildingFacilities)
+    return BuildingFacilities
+}
+async function getOneBuildingFacility(buildingIdx) {
+    const buildingQuery = await buildingDao.BuildingFacilities(buildingIdx)
     return buildingQuery
 }
 async function postReport(title, contents, img, userIdx, buildingIdx) {
@@ -17,6 +23,7 @@ async function postReport(title, contents, img, userIdx, buildingIdx) {
 
 module.exports = {
     getBuilding,
-    getOneBuilding,
+    getBuildingFacility,
+    getOneBuildingFacility,
     postReport
 }

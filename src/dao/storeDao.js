@@ -72,7 +72,6 @@ async function selectStoreByFilter(facilityIdx) {
 module.exports = { 
     selectStoreByBuildingIdx,
     selectStoreByCategoryIdx,
-    selectStoreByFilter
-
-
+    selectStoreByFilter,
+    selectStoreInfo
 }

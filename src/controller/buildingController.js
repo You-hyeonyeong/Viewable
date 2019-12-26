@@ -14,10 +14,10 @@ async function getBuilding(req, res, next) {
   }
 }
 
-async function getOneBuilding(req, res, next) {
+async function getOneBuildingFacility(req, res, next) {
   try {
-    const oneBuilding = await buildingService.getOneBuilding(req.params.buildingIdx)
-    response(res, 200, "성공", oneBuilding[0]);
+    const oneBuildingFacility = await buildingService.getOneBuildingFacility(req.params.buildingIdx)
+    response(res, 200, "성공", oneBuildingFacility);
   } catch (e) {
     next(e);
     return false;
@@ -44,7 +44,7 @@ async function postbuildingReport(req, res, next) {
 
 module.exports = { 
   getBuilding,
-  getOneBuilding,
+  getOneBuildingFacility,
   postbuildingReport
 }
 
