@@ -6,15 +6,19 @@ const logger = require("morgan");
 const helmet = require("helmet");
 const cors = require("cors");
 
+const env = require("./src/utils/env");
 const indexRouter = require("./src/routes/index");
 const { errResponse } = require("./src/utils/response");
 const swaggerDocs = require("./swaggerDocs.js");
-
+const corsOptions = {
+  origin: [`http://${env.EC2_HOST}:4000`, `http://localhost:4000`],
+  optionsSuccessStatus: 200
+};
 const app = express();
 
-app.use(cors());
 app.use(swaggerDocs);
 app.use(helmet());
+app.use(cors(corsOptions));
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
