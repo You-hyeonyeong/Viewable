@@ -45,7 +45,10 @@ const selectStoreInfo = async storeIdx => {
 };
 
 async function selectStoreByCategoryIdx(categoryIdx) {
-  const selectQuery = `SELECT * FROM viewable.store WHERE categoryIdx = ?;`;
+  const selectQuery = `SELECT s.*, b.latitude, b.longitude
+                      FROM viewable.store s
+                      JOIN viewable.building b ON b.buildingIdx = s.buildingIdx
+                      WHERE s.categoryIdx = ?;`;
   return await query(selectQuery, [categoryIdx]);
 }
 

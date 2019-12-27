@@ -17,7 +17,7 @@ const getBuildingStoreList = async(req, res, next) => {
         facility
       );
     }
-    response(res, 200, store);
+    response(res, 200, "성공", store);
   } catch (e) {
     console.log(e.message);
     next(e);
@@ -27,7 +27,7 @@ const getBuildingStoreList = async(req, res, next) => {
 const getStoreByStoreIdx = async(req, res, next) => {
   try {
     const store = await storeService.getStoreByStoreIdx(req.params.storeIdx);
-    response(res, 200, store);
+    response(res, 200, "성공", store);
   } catch (e) {
     console.log(e.message);
     next(e);
