@@ -27,18 +27,16 @@ async function getOneBuildingFacility(req, res, next) {
 }
 
 async function postbuildingReport(req, res, next) {
-  const userIdx = req.user.userIdx
+  const userIdx = req.user.userIdx;
   const buildingIdx = req.params.buildingIdx;
   const title = req.body.title;
   const contents = req.body.contents;
-  const img = req.file.location;
-  console.log(img)
 
   try {
     const postReport = await buildingService.postReport(
       title,
       contents,
-      img,
+      "https://viewablebucket.s3.ap-northeast-2.amazonaws.com/img.jpeg",
       userIdx,
       buildingIdx
     );
