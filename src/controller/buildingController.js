@@ -6,7 +6,6 @@ async function getBuilding(req, res, next) {
   const longitude = req.query.longitude;
   try {
     const test = await buildingService.getBuilding(latitude, longitude);
-    console.log(latitude, longitude);
     response(res, 200, "성공", test);
   } catch (e) {
     next(e);
