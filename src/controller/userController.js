@@ -7,6 +7,7 @@ const kakaoLogin = async(req, res, next) => {
       req.body.name,
       req.body.kakaoAccessToken
     );
+    console.log(newUser)
     response(res, 200, newUser);
   } catch (e) {
     console.log(e.message);
@@ -15,8 +16,8 @@ const kakaoLogin = async(req, res, next) => {
 };
 
 async function getUserProfile(req, res, next) {
-  const userIdx = 1; //req.user.userIdx
   try {
+    const userIdx = req.user.userIdx;
     const userInfo1 = await userService.getUserProfile(userIdx);
     const userInfo2 = await userService.getUserReport(userIdx);
     const userInfo = {

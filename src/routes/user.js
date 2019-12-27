@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const { checkAccessToken } = require("../utils/middleware");
 const userController = require("../controller/userController");
 
 router.post("/kakao", userController.kakaoLogin);
-router.get("/mypage", userController.getUserProfile);
+router.get("/mypage", checkAccessToken, userController.getUserProfile);
 router.get("/kakao/callback", (req, res) => {
-  try {} catch (e) {
+  try { } catch (e) {
     console.log(e.message);
     next(e);
   }

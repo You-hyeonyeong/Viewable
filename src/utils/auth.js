@@ -1,10 +1,10 @@
 const jwt = require("jsonwebtoken");
-const { env } = require("./env");
+const env = require("./env");
 
 function checkAndDecodeAccessToken(auth) {
   try {
     const oauth = auth.split(" ");
-    const token = jwt.verify(oauth[1], env.ACCESS_KEY_SECRET);
+    const token = jwt.verify(oauth[1], env.SECRET_ACCESS_KEY);
 
     return token;
   } catch (e) {
@@ -21,6 +21,9 @@ function createAccessToken(userIdx) {
     };
     const payload = { userIdx };
     const token = jwt.sign(payload, env.SECRET_ACCESS_KEY, option);
+
+    console.log(token);
+console.log("0;=00000000");
 
     return `Bearer ${token}`;
   } catch (e) {

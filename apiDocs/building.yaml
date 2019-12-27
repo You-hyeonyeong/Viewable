@@ -112,3 +112,34 @@
         description: Success to get mypage
       500:
         description: Internal Server Error
+
+/building/{buildingIdx}/report:
+  post:
+    tags:
+      - 신고
+    summary: 신고하기
+    consumes:
+      - application/json
+    parameters:
+      - name: "img"
+        in: "body"
+        description: "사진"
+        required: true
+        type: "string"
+      - name: "title"
+        in: "body"
+        description: "신고 제목"
+        required: true
+        type: "string"
+      - name: "contents"
+        in: "body"
+        description: "신고 내용"
+        required: true
+        type: "string"
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success to post report
+      500:
+        description: Internal Server Error

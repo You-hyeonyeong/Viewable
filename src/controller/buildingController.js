@@ -16,10 +16,10 @@ async function getBuilding(req, res, next) {
 
 async function getOneBuildingFacility(req, res, next) {
   try {
-    const oneBuilding = await buildingService.getOneBuilding(
+    const oneBuilding = await buildingService.getOneBuildingFacility(
       req.params.buildingIdx
     );
-    response(res, 200, "성공", oneBuilding[0]);
+    response(res, 200, "성공", oneBuilding);
   } catch (e) {
     next(e);
     return false;
@@ -34,6 +34,7 @@ async function postbuildingReport(req, res, next) {
   const title = req.body.title;
   const contents = req.body.contents;
   const img = req.file.location;
+  console.log(img)
 
   try {
     const postReport = await buildingService.postReport(
@@ -43,7 +44,7 @@ async function postbuildingReport(req, res, next) {
       userIdx,
       buildingIdx
     );
-    response(res, 200, "성공", postReport);
+    response(res, 200, "성공");
   } catch (e) {
     next(e);
     return false;

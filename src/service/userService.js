@@ -30,6 +30,8 @@ const kakaoLogin = async(name, kakaoAccessToken) => {
       userIdx = check[0].userIdx;
     }
     const accessToken = auth.createAccessToken(userIdx);
+    console.log(accessToken);
+    
 
     return { accessToken };
   } catch (e) {

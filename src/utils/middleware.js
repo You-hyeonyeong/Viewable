@@ -2,7 +2,6 @@ const auth = require("./auth");
 
 function checkAccessToken(req, res, next) {
   const token = auth.checkAndDecodeAccessToken(req.headers.authorization);
-
   if (token) {
     req.user = token;
     next();
@@ -12,4 +11,4 @@ function checkAccessToken(req, res, next) {
   }
 }
 
-module.exports = checkAccessToken;
+module.exports = { checkAccessToken };

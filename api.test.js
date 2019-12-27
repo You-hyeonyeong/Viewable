@@ -16,10 +16,10 @@ describe("Viewable API Test", () => {
         .post("/user/kakao")
         .send({
           name: "genie",
-          kakaoAccessToken: ""
+          kakaoAccessToken: "9ml9-3Lf2zLcXjSPvF1_700DYv1Q6S6LSCBLLgo9dZwAAAFvR5qN8A"
         })
         .expect(200);
-      token = res.body.accessToken;
+      // token = res.body.accessToken;
     });
   });
 

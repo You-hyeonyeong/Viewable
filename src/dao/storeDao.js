@@ -44,33 +44,56 @@ const selectStoreInfo = async storeIdx => {
   return await query(selectSql);
 };
 
-// 혀녕이 수정 부분
-// async function selectStoreByBuildingIdx(buildingIdx) {
-//   const selectQuery = `SELECT s.name, s.img, s.phone, s.address, s.operating
-//                         c.title,
-//                         FROM viewable.store s
-//                         JOIN viewable.category c ON s.categoryIdx = c.categoryIdx
-//                         JOIN viewable.builgingStoreFacility bsf ON s.buildingIdx = bsf.buildingIdx
-//                         WHERE s.buildingIdx = ?;`;
-//   return await query(selectQuery, [buildingIdx]);
-// }
+async function selectStoreByCategoryIdx(categoryIdx) {
+  const selectQuery = `SELECT * FROM viewable.store WHERE categoryIdx = ?;`;
+  return await query(selectQuery, [categoryIdx]);
+}
 
-// async function selectStoreByCategoryIdx(categoryIdx) {
-//   const selectQuery = `SELECT * FROM viewable.store WHERE categoryIdx = ?;`;
-//   return await query(selectQuery, [categoryIdx]);
-// }
-
-// //검색어 + 편의시설로 검색 가능 (편의시설 리스트는 아직)
-// async function selectStoreByFilter(facilityIdx) {
-//   const selectQuery = `SELECT s.*, f.name, bsf.facilityIdx FROM viewable.store s
-//                         JOIN viewable.buildingStoreFacility bsf ON bsf.storeIdx = s.storeIdx
-//                         JOIN viewable.facility f ON f.facilityIdx = bsf.facilityIdx
-//                         WHERE s.name LIKE ? AND f.facilityIdx IN (?,?) group by s.name;`;
-//   return await query(selectQuery, [facilityIdx, "%" + keyword + "%"]);
-// }
+//검색어 + 편의시설로 검색 가능 (편의시설 리스트는 아직)
+async function selectStoreByFilter(keyword, facilityIdx) {
+  const selectSql = `
+      SELECT s.buildingIdx, s.storeIdx, s.name, img, phone, s.address, operating, title as category, c.categoryIdx, latitude, longitude
+      FROM viewable.store AS s
+      JOIN viewable.category AS c
+      ON s.categoryIdx = c.categoryIdx
+      JOIN viewable.buildingStoreFacility AS bf
+      ON s.storeIdx = bf.storeIdx 
+      JOIN viewable.building AS b 
+      ON b.buildingIdx = s.buildingIdx
+      WHERE s.name LIKE '%${keyword}%' AND bf.facilityIdx IN (${facilityIdx})
+      GROUP BY bf.storeIdx;`
+  return await query(selectSql);
+}
+//검색어 
+async function selectStoreByKeyword(keyword) {
+  const selectSql = `
+      SELECT s.buildingIdx, s.storeIdx, s.name, img, phone, s.address, operating, title as category, c.categoryIdx, facilityIdx, latitude, longitude
+      FROM viewable.store AS s
+      JOIN viewable.category AS c
+      ON s.categoryIdx = c.categoryIdx
+      JOIN viewable.buildingStoreFacility AS bf
+      ON s.storeIdx = bf.storeIdx 
+      JOIN viewable.building AS b 
+      ON b.buildingIdx = s.buildingIdx
+      WHERE s.name LIKE '%${keyword}%'
+      GROUP BY bf.facilityIdx;`
+  return await query(selectSql);
+}
+//매장당 편의시설리스트
+async function selectFacilityByStoreIdx(storeIdx) {
+  const selectSql = `SELECT bf.facilityIdx 
+                    FROM viewable.store s
+                    JOIN viewable.buildingStoreFacility bf on bf.storeIdx = s.storeIdx 
+                    WHERE bf.storeIdx = ?`
+  return await query(selectSql,[storeIdx]);
+}
 
 module.exports = {
   selectStoresByBuildingIdx,
   selectFilteredStore,
-  selectStoreInfo
+  selectStoreInfo,
+  selectStoreByCategoryIdx,
+  selectStoreByFilter,
+  selectStoreByKeyword,
+  selectFacilityByStoreIdx
 };

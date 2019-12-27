@@ -60,9 +60,11 @@ async function getOneStore(req, res, next) {
 async function getStoreByCategoryIdx(req, res, next) {
   const categoryIdx = req.params.categoryIdx;
   try {
-    if (categoryIdx > 7) response(res, 200, "범위다름");
+    if (categoryIdx > 7) response(res, 401, "범위다름");
     const test = await storeService.getStoreByCategoryIdx(categoryIdx);
-    response(res, 200, "성공", test);
+    console.log(test)
+    if(test.length == 0) response(res, 404, "카테고리에 매장 없음");
+    else response(res, 200, "성공", test);
   } catch (e) {
     next(e);
     return false;
@@ -70,12 +72,21 @@ async function getStoreByCategoryIdx(req, res, next) {
 }
 //검색조건 keyword 와 [facilityIdx] 미완성
 async function getStoreByFilter(req, res, next) {
-  const faciltyIdx = req.query.faciltyIdx;
   const keyword = req.query.keyword;
-
+  const facilityIdx = req.query.facilityIdx;
   try {
-    const test = await facilityService.getFacilityByStore(storeIdx);
-    response(res, 200, "성공", test);
+    //keywor만들어와도 가능
+    if (keyword !== null && facilityIdx == undefined) {
+      console.log("키워드만 들어왔어")
+      const test = await storeService.getStoreSearchWord(keyword);
+      if(test.length == 0) response(res, 404, "검색결과 없음");
+      else response(res, 200, "키워드 검색", test);
+         //keyword랑 필터랑 같이 들어와도 가능
+    } else {
+      const test = await storeService.getStoreSearch(keyword, facilityIdx);
+      if(test.length == 0) response(res, 404, "검색결과 없음");
+      else response(res, 200, "키워드+필터 검색", test);
+    }
   } catch (e) {
     next(e);
     return false;
