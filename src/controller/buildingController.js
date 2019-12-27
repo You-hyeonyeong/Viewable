@@ -27,9 +27,7 @@ async function getOneBuildingFacility(req, res, next) {
 }
 
 async function postbuildingReport(req, res, next) {
-  const userIdx = 1;
-  //req.user.userIdx
-  //console.log(userIdx);
+  const userIdx = req.user.userIdx
   const buildingIdx = req.params.buildingIdx;
   const title = req.body.title;
   const contents = req.body.contents;
