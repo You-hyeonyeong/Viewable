@@ -27,6 +27,8 @@ const KAKAO_APP_KEY = process.env.KAKAO_APP_KEY;
 
 const KAKAO_REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;
 
+const EC2_HOST = process.env.EC2_HOST;
+
 const env = {
   NODE_ENV,
   DB_HOST,
@@ -40,7 +42,8 @@ const env = {
   AWS_SECRETACCESSKEY,
   AWS_REGION,
   KAKAO_APP_KEY,
-  KAKAO_REDIRECT_URI
+  KAKAO_REDIRECT_URI,
+  EC2_HOST
 };
 
 module.exports = env;

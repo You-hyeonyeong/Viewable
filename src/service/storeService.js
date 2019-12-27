@@ -70,27 +70,6 @@ const getStoreByStoreIdx = async storeIdx => {
   }
 };
 
-const makeUpStoreList = store => {
-  const storeList = [{
-    storeIdx: 0
-  }];
-  let listIdx = 0;
-  for (let i = 0; i < store.length; i++) {
-    if (storeList[listIdx].storeIdx === store[i].storeIdx) {
-      storeList[listIdx].facility.push(store[i].facilityIdx);
-    } else {
-      storeList.push({
-        ...store[i]
-      });
-      listIdx += 1;
-      storeList[listIdx].facility = [store[i].facilityIdx];
-      delete storeList[listIdx].facilityIdx;
-    }
-  }
-  storeList.splice(0, 1);
-  return storeList;
-};
-
 async function getStoreByCategoryIdx(categoryIdx) {
   const storeQuery = await storeDao.selectStoreByCategoryIdx(categoryIdx);
   return storeQuery;
@@ -117,6 +96,16 @@ async function getStoreSearch(keyword, facility) {
       facilityWhere
     );
     const storeList = makeUpStoreList(store);
+
+    storeList.map(store => {
+      if (store.facility.length >= 4) {
+        store["light"] = 3; // 초록불
+      } else if (store.facility.length >= 2) {
+        store["light"] = 2; // 노란불
+      } else {
+        store["light"] = 1; // 빨간불
+      }
+    });
     return { storeList };
   } catch (e) {
     console.log(e.message);
@@ -141,4 +130,25 @@ module.exports = {
   getStoreSearch,
   getStoreSearchWord,
   getFacilityByStoreIdx
+};
+
+const makeUpStoreList = store => {
+  const storeList = [{
+    storeIdx: 0
+  }];
+  let listIdx = 0;
+  for (let i = 0; i < store.length; i++) {
+    if (storeList[listIdx].storeIdx === store[i].storeIdx) {
+      storeList[listIdx].facility.push(store[i].facilityIdx);
+    } else {
+      storeList.push({
+        ...store[i]
+      });
+      listIdx += 1;
+      storeList[listIdx].facility = [store[i].facilityIdx];
+      delete storeList[listIdx].facilityIdx;
+    }
+  }
+  storeList.splice(0, 1);
+  return storeList;
 };

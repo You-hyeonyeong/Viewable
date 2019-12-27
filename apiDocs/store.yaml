@@ -53,3 +53,30 @@
         description: Success to get store list
       500:
         description: Internal Server Error
+/search:
+  get:
+    tags:
+      - 상점
+    summary: 상점 검색
+    consumes:
+      - application/json
+    parameters:
+      - name: "keyword"
+        in: "query"
+        required: true
+        description: "검색 키워드"
+        schema:
+          type: string
+      - name: "facility"
+        in: "query"
+        required: false
+        description: "필터링하고싶은 편의시설들들(다수의 값들은 , 로 묶어서 주세요 / ex. 1,2,3 )"
+        schema:
+          type: string
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success to get store list
+      500:
+        description: Internal Server Error
