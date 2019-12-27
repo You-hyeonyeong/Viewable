@@ -62,8 +62,8 @@ async function getStoreByCategoryIdx(req, res, next) {
   try {
     if (categoryIdx > 7) response(res, 401, "범위다름");
     const test = await storeService.getStoreByCategoryIdx(categoryIdx);
-    console.log(test)
-    if(test.length == 0) response(res, 404, "카테고리에 매장 없음");
+    console.log(test);
+    if (test.length == 0) response(res, 404, "카테고리에 매장 없음");
     else response(res, 200, "성공", test);
   } catch (e) {
     next(e);
@@ -71,22 +71,13 @@ async function getStoreByCategoryIdx(req, res, next) {
   }
 }
 //검색조건 keyword 와 [facilityIdx] 미완성
-async function getStoreByFilter(req, res, next) {
-  const keyword = req.query.keyword;
-  const facilityIdx = req.query.facilityIdx;
+async function getStoreSearch(req, res, next) {
   try {
-    //keywor만들어와도 가능
-    if (keyword !== null && facilityIdx == undefined) {
-      console.log("키워드만 들어왔어")
-      const test = await storeService.getStoreSearchWord(keyword);
-      if(test.length == 0) response(res, 404, "검색결과 없음");
-      else response(res, 200, "키워드 검색", test);
-         //keyword랑 필터랑 같이 들어와도 가능
-    } else {
-      const test = await storeService.getStoreSearch(keyword, facilityIdx);
-      if(test.length == 0) response(res, 404, "검색결과 없음");
-      else response(res, 200, "키워드+필터 검색", test);
-    }
+    const keyword = req.query.keyword;
+    const facility = req.query.facility === undefined ? "" : req.query.facility;
+
+    const store = await storeService.getStoreSearch(keyword, facility);
+    response(res, 200, "검색 성공", store);
   } catch (e) {
     next(e);
     return false;
@@ -99,5 +90,5 @@ module.exports = {
   getStore,
   getOneStore,
   getStoreByCategoryIdx,
-  getStoreByFilter
+  getStoreSearch
 };

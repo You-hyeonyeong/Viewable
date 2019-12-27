@@ -55,7 +55,7 @@ const getFilteredStore = async(buildingIdx, category, facility) => {
 const getStoreByStoreIdx = async storeIdx => {
   try {
     const store = await storeDao.selectStoreInfo(storeIdx);
-    console.log(store)
+    console.log(store);
     const info = store[0];
     info["facilities"] = [];
 
@@ -96,49 +96,41 @@ async function getStoreByCategoryIdx(categoryIdx) {
   return storeQuery;
 }
 
-//키워드 + 편의시설 선택
-async function getStoreSearch(keyword, facilityIdx) {
-  const searchQuery = await storeDao.selectStoreByFilter(keyword, facilityIdx)
-  let storeArray = [];
-  let storeList = [];
-  let facilityList = [];
-  //일단 매장리스트 넘겨주기
-  for(var key in searchQuery) {
-    const storeIdx = searchQuery[key]['storeIdx'];
-    storeArray.push(storeIdx)
-  }
-  console.log("매장리스트" + storeArray)
-  //매장리스트별 편의시설 불러오기
-   for(let value of storeArray){
-    const storeList = await getFacilityByStoreIdx(value)
-    console.log("길이" + storeList.length)
-    for(var i in storeList) {
-      console.log(storeList[i].facilityIdx);
-      facilityList.push(storeList[i].facilityIdx)
+// 검색
+async function getStoreSearch(keyword, facility) {
+  try {
+    const facilityList = facility.split(",");
+    let facilityWhere = ``;
+    if (facilityList[0] !== "") {
+      facilityWhere = ` WHERE facilityIdx IN (`;
+      for (let i = 0; i < facilityList.length; i++) {
+        if (i != facilityList.length - 1) {
+          facilityWhere += `${facilityList[i]},`;
+        } else {
+          facilityWhere += `${facilityList[i]}) `;
+        }
+      }
     }
-    console.log("들어간 배욜" + facilityList)
-    console.log("한매장 끝")
-   }
-  //  for (var i=0, storeFacility; storeFacility =  searchQuery[i]; i++ ){
-  //    const 
-  //  }
 
-
-  const sum = {
-    "searchQuery" : searchQuery,
-    "storeList" : storeList
+    const store = await storeDao.selectStoreByKeywordAndFilter(
+      keyword,
+      facilityWhere
+    );
+    const storeList = makeUpStoreList(store);
+    return { storeList };
+  } catch (e) {
+    console.log(e.message);
+    throw e;
   }
-  console.log(sum)
-  return sum;
 }
 //검색어
 async function getStoreSearchWord(keyword) {
-  const searchQuery = await storeDao.selectStoreByKeyword(keyword)
+  const searchQuery = await storeDao.selectStoreByKeyword(keyword);
   return searchQuery;
 }
 //selectFacilityByStoreIdx
 async function getFacilityByStoreIdx(storeIdx) {
-  const searchQuery = await storeDao.selectFacilityByStoreIdx(storeIdx)
+  const searchQuery = await storeDao.selectFacilityByStoreIdx(storeIdx);
   return searchQuery;
 }
 module.exports = {
