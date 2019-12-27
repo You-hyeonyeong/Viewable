@@ -49,22 +49,22 @@ async function selectStoreByCategoryIdx(categoryIdx) {
   return await query(selectQuery, [categoryIdx]);
 }
 
-//검색어 + 편의시설로 검색 가능 (편의시설 리스트는 아직)
-async function selectStoreByFilter(keyword, facilityIdx) {
+async function selectStoreByKeywordAndFilter(keyword, facilityWhere) {
   const selectSql = `
-      SELECT s.buildingIdx, s.storeIdx, s.name, img, phone, s.address, operating, title as category, c.categoryIdx, latitude, longitude
-      FROM viewable.store AS s
-      JOIN viewable.category AS c
-      ON s.categoryIdx = c.categoryIdx
-      JOIN viewable.buildingStoreFacility AS bf
-      ON s.storeIdx = bf.storeIdx 
-      JOIN viewable.building AS b 
-      ON b.buildingIdx = s.buildingIdx
-      WHERE s.name LIKE '%${keyword}%' AND bf.facilityIdx IN (${facilityIdx})
-      GROUP BY bf.storeIdx;`
+  SELECT s.storeIdx, s.name, img, phone, s.address, operating, b.buildingIdx, facilityIdx, b.name AS buildingName, latitude, longitude
+  FROM (
+    SELECT distinct storeIdx
+    FROM buildingStoreFacility as b${facilityWhere}) AS sidx
+  JOIN store AS s
+  ON s.storeIdx = sidx.storeIdx
+  JOIN buildingStoreFacility AS bsf
+  ON s.storeIdx = bsf.storeIdx
+  JOIN building as b
+  ON b.buildingIdx = s.buildingIdx
+  WHERE s.name LIKE '%${keyword}%';`;
   return await query(selectSql);
 }
-//검색어 
+//검색어
 async function selectStoreByKeyword(keyword) {
   const selectSql = `
       SELECT s.buildingIdx, s.storeIdx, s.name, img, phone, s.address, operating, title as category, c.categoryIdx, facilityIdx, latitude, longitude
@@ -76,7 +76,7 @@ async function selectStoreByKeyword(keyword) {
       JOIN viewable.building AS b 
       ON b.buildingIdx = s.buildingIdx
       WHERE s.name LIKE '%${keyword}%'
-      GROUP BY bf.facilityIdx;`
+      GROUP BY bf.facilityIdx;`;
   return await query(selectSql);
 }
 //매장당 편의시설리스트
@@ -84,8 +84,8 @@ async function selectFacilityByStoreIdx(storeIdx) {
   const selectSql = `SELECT bf.facilityIdx 
                     FROM viewable.store s
                     JOIN viewable.buildingStoreFacility bf on bf.storeIdx = s.storeIdx 
-                    WHERE bf.storeIdx = ?`
-  return await query(selectSql,[storeIdx]);
+                    WHERE bf.storeIdx = ?`;
+  return await query(selectSql, [storeIdx]);
 }
 
 module.exports = {
@@ -93,7 +93,7 @@ module.exports = {
   selectFilteredStore,
   selectStoreInfo,
   selectStoreByCategoryIdx,
-  selectStoreByFilter,
+  selectStoreByKeywordAndFilter,
   selectStoreByKeyword,
   selectFacilityByStoreIdx
 };
