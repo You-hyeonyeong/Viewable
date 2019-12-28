@@ -45,10 +45,17 @@ const selectStoreInfo = async storeIdx => {
 };
 
 async function selectStoreByCategoryIdx(categoryIdx) {
-  const selectQuery = `SELECT s.*, b.latitude, b.longitude
-                      FROM viewable.store s
-                      JOIN viewable.building b ON b.buildingIdx = s.buildingIdx
-                      WHERE s.categoryIdx = ?;`;
+  // `SELECT s.*, b.latitude, b.longitude
+  //                     FROM viewable.store s
+  //                     JOIN viewable.building b ON b.buildingIdx = s.buildingIdx
+  //                     WHERE s.categoryIdx = ?;`;
+const selectQuery =  `SELECT s.storeIdx, s.name, img, phone, s.address, operating, b.buildingIdx, facilityIdx, b.name AS buildingName, latitude, longitude
+                      FROM store AS s
+                      JOIN buildingStoreFacility AS bsf
+                      ON s.storeIdx = bsf.storeIdx
+                      JOIN building as b
+                      ON b.buildingIdx = s.buildingIdx
+                      WHERE s.categoryIdx = ?;`
   return await query(selectQuery, [categoryIdx]);
 }
 

@@ -62,7 +62,6 @@ async function getStoreByCategoryIdx(req, res, next) {
   try {
     if (categoryIdx > 7) response(res, 401, "범위다름");
     const test = await storeService.getStoreByCategoryIdx(categoryIdx);
-    console.log(test);
     if (test.length == 0) response(res, 404, "카테고리에 매장 없음");
     else response(res, 200, "성공", test);
   } catch (e) {

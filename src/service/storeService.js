@@ -70,9 +70,21 @@ const getStoreByStoreIdx = async storeIdx => {
   }
 };
 
+//카테고리별 검색
 async function getStoreByCategoryIdx(categoryIdx) {
-  const storeQuery = await storeDao.selectStoreByCategoryIdx(categoryIdx);
-  return storeQuery;
+  const store = await storeDao.selectStoreByCategoryIdx(categoryIdx);
+  const storeList = makeUpStoreList(store);
+
+    storeList.map(store => {
+      if (store.facility.length >= 4) {
+        store["light"] = 3; // 초록불
+      } else if (store.facility.length >= 2) {
+        store["light"] = 2; // 노란불
+      } else {
+        store["light"] = 1; // 빨간불
+      }
+    });
+    return { storeList };
 }
 
 // 검색
