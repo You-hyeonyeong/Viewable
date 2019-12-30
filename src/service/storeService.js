@@ -21,9 +21,9 @@ const getFilteredStore = async(buildingIdx, category, facility) => {
       categoryWhere = `WHERE categoryIdx IN (`;
       for (let i = 0; i < categoryList.length; i++) {
         if (i != categoryList.length - 1) {
-          categoryWhere += `${categoryList[i]},`;
+          categoryWhere += `${Number(categoryList[i]) + 1},`;
         } else {
-          categoryWhere += `${categoryList[i]})`;
+          categoryWhere += `${Number(categoryList[i]) + 1})`;
         }
       }
     }
@@ -33,9 +33,9 @@ const getFilteredStore = async(buildingIdx, category, facility) => {
       facilityWhere = ` AND facilityIdx IN (`;
       for (let i = 0; i < facilityList.length; i++) {
         if (i != facilityList.length - 1) {
-          facilityWhere += `${facilityList[i]},`;
+          facilityWhere += `${Number(facilityList[i]) + 1},`;
         } else {
-          facilityWhere += `${facilityList[i]}) `;
+          facilityWhere += `${Number(facilityList[i]) + 1}) `;
         }
       }
     }
@@ -75,16 +75,16 @@ async function getStoreByCategoryIdx(categoryIdx) {
   const store = await storeDao.selectStoreByCategoryIdx(categoryIdx);
   const storeList = makeUpStoreList(store);
 
-    storeList.map(store => {
-      if (store.facility.length >= 4) {
-        store["light"] = 3; // 초록불
-      } else if (store.facility.length >= 2) {
-        store["light"] = 2; // 노란불
-      } else {
-        store["light"] = 1; // 빨간불
-      }
-    });
-    return { storeList };
+  storeList.map(store => {
+    if (store.facility.length >= 4) {
+      store["light"] = 3; // 초록불
+    } else if (store.facility.length >= 2) {
+      store["light"] = 2; // 노란불
+    } else {
+      store["light"] = 1; // 빨간불
+    }
+  });
+  return { storeList };
 }
 
 // 검색
