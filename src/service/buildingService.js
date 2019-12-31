@@ -46,8 +46,23 @@ async function getBuildingFacility(buildingIdx) {
   return BuildingFacilities;
 }
 async function getOneBuildingFacility(buildingIdx) {
-  const buildingQuery = await buildingDao.BuildingFacilities(buildingIdx);
-  return buildingQuery;
+  const building = (await buildingDao.getBuildingInfo(buildingIdx))[0];
+  const facilityList = await buildingDao.BuildingFacilities(buildingIdx);
+
+  building["facility"] = [];
+  facilityList.map(facility => {
+    building.facility.push(facility.facilityIdx);
+  });
+
+  if (building.facility.length >= 3) {
+    building["light"] = 3;
+  } else if (building.facility.length >= 2) {
+    building["light"] = 2;
+  } else {
+    building["light"] = 1;
+  }
+
+  return building;
 }
 async function postReport(title, contents, img, userIdx, buildingIdx) {
   const reportQuery = await reportDao.insertBuildingReport(

@@ -9,6 +9,15 @@ async function BuildingQuery(latitude, longitude) {
         ORDER BY distance;`;
   return await query(selectQuery, [latitude, longitude, latitude]);
 }
+
+async function getBuildingInfo(buildingIdx) {
+  const selectQuery = `
+        SELECT *
+        FROM building
+        WHERE buildingIdx = ${buildingIdx}
+  `;
+  return await query(selectQuery);
+}
 async function BuildingFacilities(buildingIdx) {
   const selectQuery = `
         SELECT DISTINCT  bsf.buildingIdx, f.facilityIdx, f.name 
@@ -28,6 +37,7 @@ async function getBuildingFacilitiesList(buildingIdx) {
 
 module.exports = {
   BuildingQuery,
+  getBuildingInfo,
   BuildingFacilities,
   getBuildingFacilitiesList
 };

@@ -15,10 +15,12 @@ async function getBuilding(req, res, next) {
 
 async function getOneBuildingFacility(req, res, next) {
   try {
-    const oneBuilding = await buildingService.getOneBuildingFacility(
+    const building = await buildingService.getOneBuildingFacility(
       req.params.buildingIdx
     );
-    response(res, 200, "성공", oneBuilding);
+    console.log(building);
+
+    response(res, 200, "성공", building);
   } catch (e) {
     next(e);
     return false;
