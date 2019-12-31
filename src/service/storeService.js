@@ -46,7 +46,7 @@ const getFilteredStore = async(buildingIdx, category, facility) => {
       categoryWhere
     );
     const storeList = makeUpStoreList(store);
-    return { storeList };
+    return storeList;
   } catch (e) {
     throw e;
   }
