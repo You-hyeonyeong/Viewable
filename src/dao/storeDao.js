@@ -18,7 +18,7 @@ const selectFilteredStore = async(
   categoryWhere
 ) => {
   const selectSql = `
-      SELECT *
+      SELECT s.storeIdx, s.name, img, phone, address, operating, s.buildingIdx, s.categoryIdx, facilityIdx
       FROM (
         SELECT distinct storeIdx
         FROM buildingStoreFacility as b
@@ -49,13 +49,13 @@ async function selectStoreByCategoryIdx(categoryIdx) {
   //                     FROM viewable.store s
   //                     JOIN viewable.building b ON b.buildingIdx = s.buildingIdx
   //                     WHERE s.categoryIdx = ?;`;
-const selectQuery =  `SELECT s.storeIdx, s.categoryIdx, s.name, img, phone, s.address, operating, b.buildingIdx, facilityIdx, b.name AS buildingName, latitude, longitude
+  const selectQuery = `SELECT s.storeIdx, s.categoryIdx, s.name, img, phone, s.address, operating, b.buildingIdx, facilityIdx, b.name AS buildingName, latitude, longitude
                       FROM store AS s
                       JOIN buildingStoreFacility AS bsf
                       ON s.storeIdx = bsf.storeIdx
                       JOIN building as b
                       ON b.buildingIdx = s.buildingIdx
-                      WHERE s.categoryIdx = ?;`
+                      WHERE s.categoryIdx = ?;`;
   return await query(selectQuery, [categoryIdx]);
 }
 
